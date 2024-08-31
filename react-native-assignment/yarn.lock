@@ -5393,6 +5393,11 @@ react-native-screens@^3.34.0, "react-native-screens@>= 3.0.0":
     react-freeze "^1.0.0"
     warn-once "^0.1.0"
 
+react-native-simple-toast@^3.3.1:
+  version "3.3.1"
+  resolved "https://registry.npmjs.org/react-native-simple-toast/-/react-native-simple-toast-3.3.1.tgz"
+  integrity sha512-5SbAvZpzjSHNkMGbO1cr/7kg/oHZEVZbgeqC+6FtYTtvBbkRMbEaUIfiD1rvghbxZrJB783Y/mHRDUab2ogTqA==
+
 react-native-vector-icons@^10.1.0:
   version "10.1.0"
   resolved "https://registry.npmjs.org/react-native-vector-icons/-/react-native-vector-icons-10.1.0.tgz"
@@ -5401,7 +5406,7 @@ react-native-vector-icons@^10.1.0:
     prop-types "^15.7.2"
     yargs "^16.1.1"
 
-react-native@*, "react-native@^0.0.0-0 || >=0.60 <1.0", react-native@0.72.14:
+react-native@*, "react-native@^0.0.0-0 || >=0.60 <1.0", react-native@>=0.62.2, react-native@>=0.71.0, react-native@0.72.14:
   version "0.72.14"
   dependencies:
     "@jest/create-cache-key-function" "^29.2.1"
@@ -6002,7 +6007,7 @@ supports-color@^8.0.0:
 supports-preserve-symlinks-flag@^1.0.0:
   version "1.0.0"
 
-tailwindcss@^3.3.2, tailwindcss@~3:
+tailwindcss@^3.3.2, tailwindcss@>=2.0.0, tailwindcss@~3:
   version "3.3.2"
   resolved "https://registry.npmjs.org/tailwindcss/-/tailwindcss-3.3.2.tgz"
   integrity sha512-9jPkMiIBXvPc2KywkraqsUfbfj+dHDb+JPWtSJa9MLFdrPyazI7q6WX2sUrm7R9eVR7qqv3Pas7EvQFzxKnI6w==
@@ -6109,6 +6114,13 @@ tsutils@^3.21.0:
   version "3.21.0"
   dependencies:
     tslib "^1.8.1"
+
+twrnc@^4.5.1:
+  version "4.5.1"
+  resolved "https://registry.npmjs.org/twrnc/-/twrnc-4.5.1.tgz"
+  integrity sha512-kj9agxMFKdyJJM65rxmiAg/ZG74RET5VKaJU9HCEMWZORWdYYwT16A6QS2K7mrG7a0V01j3AoEvGM4QJtYt3wg==
+  dependencies:
+    tailwindcss ">=2.0.0"
 
 type-check@^0.4.0, type-check@~0.4.0:
   version "0.4.0"

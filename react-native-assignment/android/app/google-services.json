@@ -7,25 +7,12 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:680486975426:android:ed0e223cff2c8fb3b5c85b",
+        "mobilesdk_app_id": "1:680486975426:android:86a48f9ed80fc100b5c85b",
         "android_client_info": {
           "package_name": "com.dev.scopex.CodewithLokesh"
         }
       },
-      "oauth_client": [
-        {
-          "client_id": "680486975426-k484hdbadv6tcshm7suj5bugj9jmns81.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.dev.scopex.CodewithLokesh",
-            "certificate_hash": "3550248b069d0d340f25c5f0912757103a2f12f1"
-          }
-        },
-        {
-          "client_id": "680486975426-3h1uc6iav39g812o4ln7i79nn4emfabd.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
+      "oauth_client": [],
       "api_key": [
         {
           "current_key": "AIzaSyCapRbj8vws1ANE3Q80JmgDEZkqpxnPtPM"
