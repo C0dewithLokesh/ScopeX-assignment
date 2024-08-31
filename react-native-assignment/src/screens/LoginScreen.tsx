@@ -3,11 +3,14 @@ import {
   GoogleSignin,
   statusCodes,
 } from '@react-native-google-signin/google-signin';
-import {useNavigation} from '@react-navigation/native';
+import {CommonActions, useNavigation} from '@react-navigation/native';
 import React from 'react';
 import {Alert, Text, View} from 'react-native';
+import Toast from 'react-native-simple-toast';
+import {useSetRecoilState} from 'recoil';
 import tw from 'twrnc';
 import IconBtn from '../components/shared/buttons/IconBtn';
+import {userState} from '../store/userState';
 
 GoogleSignin.configure({
   scopes: ['openid', 'email', 'profile'],
@@ -19,18 +22,25 @@ GoogleSignin.configure({
 
 const LoginScreen = () => {
   const navigation = useNavigation();
+  const setUser = useSetRecoilState(userState);
 
   const handleGoogleSignIn = async () => {
     try {
       await GoogleSignin.hasPlayServices();
 
-      const {idToken} = await GoogleSignin.signIn();
+      const {idToken, user} = await GoogleSignin.signIn();
 
       const googleCredential = auth.GoogleAuthProvider.credential(idToken);
 
       auth().signInWithCredential(googleCredential);
-      // @ts-ignore
-      navigation.replace('HomeScreen' as never);
+      setUser(user);
+      Toast.show('Sign-In Successful', Toast.SHORT);
+      navigation.dispatch(
+        CommonActions.reset({
+          index: 0,
+          routes: [{name: 'HomeScreen'}],
+        }),
+      );
     } catch (error: any) {
       console.error('Google sign-in error:', error);
       if (error.code === statusCodes.SIGN_IN_CANCELLED) {
@@ -68,7 +78,7 @@ const LoginScreen = () => {
         icon={require('../../assets/images/google.png')}
         title="Sign in with Google"
         btnClassName={'bg-transparent border border-gray-300 w-[80%]'}
-        textClassName="text-[#1F1E1E]"
+        textClassName="text-[#1F1E1E] dark:text-white"
         onClick={handleGoogleSignIn}
       />
     </View>

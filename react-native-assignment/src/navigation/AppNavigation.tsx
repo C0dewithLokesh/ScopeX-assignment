@@ -1,35 +1,42 @@
-import {GoogleSignin} from '@react-native-google-signin/google-signin';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
+import {useColorScheme} from 'nativewind';
 import React, {useEffect, useState} from 'react';
+import {useSetRecoilState} from 'recoil';
 import LoginScreen from '../screens/LoginScreen';
+import {checkUserLoggedIn} from '../services/GoogleService';
+import {userState} from '../store/userState';
 import HomeTabNavigator from './tab/HomeTabNavigator';
 
 const Stack = createStackNavigator();
 
 const AppNavigation = () => {
+  const setUser = useSetRecoilState(userState);
   const [initialRoute, setInitialRoute] = useState<string | null>(null);
+  const {setColorScheme} = useColorScheme();
 
   useEffect(() => {
-    GoogleSignin.configure({
-      scopes: ['openid', 'email', 'profile'],
-      webClientId:
-        '47684985729-p35ggalcseji24s1nlsd221bttcjrtvh.apps.googleusercontent.com',
-      forceCodeForRefreshToken: true,
-      profileImageSize: 120,
-    });
-
-    const checkUserLoggedIn = async () => {
+    const loadColorScheme = async () => {
       try {
-        const userInfo = GoogleSignin.getCurrentUser();
-        setInitialRoute(userInfo ? 'HomeScreen' : 'Login');
+        const savedScheme: any = await AsyncStorage.getItem('colorScheme');
+        if (savedScheme) {
+          setColorScheme(savedScheme);
+        }
       } catch (error) {
-        console.log('Error checking user login status: ', error);
-        setInitialRoute('Login');
+        console.error('Failed to load color scheme:', error);
       }
     };
 
-    checkUserLoggedIn();
+    const userInfo = checkUserLoggedIn();
+
+    if (userInfo) {
+      loadColorScheme();
+      setUser(userInfo);
+      setInitialRoute(userInfo ? 'HomeScreen' : 'Login');
+    } else {
+      setInitialRoute('Login');
+    }
   }, []);
 
   if (initialRoute === null) {
