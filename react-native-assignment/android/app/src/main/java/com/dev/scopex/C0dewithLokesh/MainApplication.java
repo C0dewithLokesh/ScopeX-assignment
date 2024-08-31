@@ -1,4 +1,4 @@
-package com.awesomeproject;
+package com.dev.scopex.C0dewithLokesh;
 
 import android.app.Application;
 import com.facebook.react.PackageList;
