@@ -9,7 +9,7 @@ const HomeScreen = () => {
   return (
     <View className="w-full h-full p-5 pt-2 dark:bg-[#373737]">
       <View className="flex flex-row items-center justify-between">
-        <Text className="text-black font-semibold text-[30px] dark:text-white">
+        <Text className="text-black font-firaCode_semiBold text-[30px] font-semibold dark:text-white">
           Todo
         </Text>
         <Pressable className="p-3" onPress={toggleColorScheme}>

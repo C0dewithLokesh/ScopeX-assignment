@@ -65,7 +65,7 @@ const LoginScreen = () => {
       </View>
 
       <IconBtn
-        icon={require('../assets/images/google.png')}
+        icon={require('../../assets/images/google.png')}
         title="Sign in with Google"
         btnClassName={'bg-transparent border border-gray-300 w-[80%]'}
         textClassName="text-[#1F1E1E]"
