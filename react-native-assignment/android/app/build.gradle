@@ -75,9 +75,9 @@ android {
      compileSdkVersion 34
 
 
-    namespace "com.dev.scopex.C0dewithLokesh"
+    namespace "com.dev.scopex.CodewithLokesh"
     defaultConfig {
-        applicationId "com.dev.scopex.C0dewithLokesh"
+        applicationId "com.dev.scopex.CodewithLokesh"
         minSdkVersion 24
         targetSdkVersion 34
         versionCode 1
