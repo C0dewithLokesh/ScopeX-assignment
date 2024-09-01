@@ -4,7 +4,7 @@ import {
   statusCodes,
 } from '@react-native-google-signin/google-signin';
 import {CommonActions, useNavigation} from '@react-navigation/native';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {Alert, Text, View} from 'react-native';
 import Toast from 'react-native-simple-toast';
 import {useSetRecoilState} from 'recoil';
@@ -24,6 +24,45 @@ GoogleSignin.configure({
 const LoginScreen = () => {
   const navigation = useNavigation();
   const setUser = useSetRecoilState(userState);
+  const [confirm, setConfirm] = useState<any>(null);
+  const [mobile, setMobile] = useState('');
+  const [otp, setOtp] = useState('');
+
+  function onAuthStateChanged(user: any) {
+    if (user) {
+      console.log(user);
+    }
+  }
+
+  useEffect(() => {
+    const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
+    return subscriber; // unsubscribe on unmount
+  }, []);
+
+  async function signInWithPhoneNumber() {
+    try {
+      const confirmation = await auth().signInWithPhoneNumber(`+91 ${mobile}`);
+      setConfirm(confirmation);
+    } catch (error: any) {
+      console.log(error);
+      Alert.alert('Error', error?.message);
+    }
+  }
+
+  async function confirmCode() {
+    try {
+      await confirm.confirm(otp);
+      navigation.dispatch(
+        CommonActions.reset({
+          index: 0,
+          routes: [{name: 'HomeScreen'}],
+        }),
+      );
+    } catch (error: any) {
+      console.log('Invalid code.');
+      Alert.alert('Error', error?.message);
+    }
+  }
 
   const handleGoogleSignIn = async () => {
     try {
@@ -79,9 +118,30 @@ const LoginScreen = () => {
         <View className="flex items-center w-full" style={tw`gap-3`}>
           <CustomInput
             placeholder="Enter Mobile Number"
+            value={mobile}
             keyboardType="numeric"
+            maxLength={10}
+            onChangeText={setMobile}
           />
-          <IconBtn title="Sign In" onClick={handleGoogleSignIn} />
+          {confirm && (
+            <CustomInput
+              value={otp}
+              placeholder="Enter OTP"
+              keyboardType="numeric"
+              maxLength={6}
+              onChangeText={setOtp}
+            />
+          )}
+          <IconBtn
+            title={confirm ? 'Verify OTP' : 'Sign In'}
+            onClick={() => {
+              if (confirm) {
+                confirmCode();
+                return;
+              }
+              signInWithPhoneNumber();
+            }}
+          />
         </View>
 
         <Text className=" text-gray-400">OR</Text>

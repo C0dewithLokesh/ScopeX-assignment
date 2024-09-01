@@ -22,8 +22,7 @@ const IconBtn = ({
       onPress={onClick}>
       {icon && <Image source={icon} className={'w-5 h-5'} />}
       <Text
-        className={`text-white text-center text-xl font-firaCode_medium font-medium capitalize leading-5 ${textClassName}`}
-        style={tw`leading-5`}>
+        className={`text-white text-center text-xl leading-[21] font-firaCode_medium font-medium capitalize ${textClassName}`}>
         {title}
       </Text>
     </Pressable>
