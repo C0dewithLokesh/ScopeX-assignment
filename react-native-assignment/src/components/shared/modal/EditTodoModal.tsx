@@ -26,7 +26,7 @@ const EditTodoModal = ({
       onRequestClose={() => setShowEditModal(!showEditModal)}>
       <View className="flex items-center justify-center w-full h-full">
         <View
-          className="flex items-center justify-center bg-white w-[80%] p-5 rounded-3xl"
+          className="flex items-center justify-center bg-white dark:bg-[#2C2C2C] w-[80%] p-5 rounded-3xl"
           style={tw`gap-4`}>
           <View className="flex flex-row border border-[#848484] items-center w-full rounded-[20px]">
             <TextInput

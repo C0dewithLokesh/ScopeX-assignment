@@ -1,10 +1,10 @@
-import React, {useState} from 'react';
-import {Modal, TextInput, View} from 'react-native';
-import {useRecoilState} from 'recoil';
-import tw from 'twrnc';
-import {TodoItem} from '../../../../helper';
-import {editModalState} from '../../../store/todoState';
-import IconBtn from '../buttons/IconBtn';
+import React, { useState } from "react";
+import { Modal, TextInput, View } from "react-native";
+import { useRecoilState } from "recoil";
+import tw from "twrnc";
+import { TodoItem } from "../../../../helper";
+import { editModalState } from "../../../store/todoState";
+import IconBtn from "../buttons/IconBtn";
 
 const EditTodoModal = ({
   currentTodoItem,
@@ -23,17 +23,19 @@ const EditTodoModal = ({
       visible={showEditModal}
       transparent
       animationType="slide"
-      onRequestClose={() => setShowEditModal(!showEditModal)}>
+      onRequestClose={() => setShowEditModal(!showEditModal)}
+    >
       <View className="flex items-center justify-center w-full h-full">
         <View
-          className="flex items-center justify-center bg-white w-[80%] p-5 rounded-3xl"
-          style={tw`gap-4`}>
+          className="flex items-center justify-center bg-white dark:bg-[#2C2C2C] w-[80%] p-5 rounded-3xl"
+          style={tw`gap-4`}
+        >
           <View className="flex flex-row border border-[#848484] items-center w-full rounded-[20px]">
             <TextInput
               placeholder="Enter a todo..."
               value={updatedTodoItem}
               className=" pl-4 flex-1 text-black dark:text-white text-base leading-[16]"
-              placeholderTextColor={'#848484'}
+              placeholderTextColor={"#848484"}
               multiline
               onChangeText={setUpdatedTodoItem}
             />
