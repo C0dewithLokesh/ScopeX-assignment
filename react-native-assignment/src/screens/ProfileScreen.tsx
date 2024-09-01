@@ -5,7 +5,7 @@ import React from 'react';
 import {Image, Text, View} from 'react-native';
 import Toast from 'react-native-simple-toast';
 import Feather from 'react-native-vector-icons/Feather';
-import {useRecoilState, useSetRecoilState} from 'recoil';
+import {useRecoilState} from 'recoil';
 import tw from 'twrnc';
 import PrimaryLayout from '../components/shared/layout/PrimaryLayout';
 import {loadingState} from '../store/globalState';
@@ -15,20 +15,23 @@ const ProfileScreen = () => {
   const navigation = useNavigation();
   const {colorScheme} = useColorScheme();
   const [user, setUser] = useRecoilState(userState);
-  const setLoading = useSetRecoilState(loadingState);
+  const [loading, setLoading] = useRecoilState(loadingState);
 
   const handleSignOut = async () => {
+    if (loading) {
+      return;
+    }
     try {
       setLoading(true);
+      await GoogleSignin.revokeAccess();
+      await GoogleSignin.signOut();
+      setUser(null);
       navigation.dispatch(
         CommonActions.reset({
           index: 0,
           routes: [{name: 'Login'}],
         }),
       );
-      await GoogleSignin.revokeAccess();
-      await GoogleSignin.signOut();
-      setUser(null);
       Toast.show('Logout done', Toast.SHORT);
     } catch (error) {
       console.error('Error signing out: ', error);
@@ -39,7 +42,7 @@ const ProfileScreen = () => {
   };
 
   return (
-    <PrimaryLayout containerClasses="pt-2">
+    <PrimaryLayout containerClasses="pt-2 justify-start">
       <View className="flex items-center w-full pt-5" style={tw`gap-6`}>
         <View className="w-full flex items-end">
           <Feather

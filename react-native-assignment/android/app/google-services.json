@@ -20,39 +20,10 @@
             "package_name": "com.dev.scopex.CodewithLokesh",
             "certificate_hash": "633885b25a1719717266f01cd2db0b7c8de503bc"
           }
-        }
-      ],
-      "api_key": [
+        },
         {
-          "current_key": "AIzaSyCapRbj8vws1ANE3Q80JmgDEZkqpxnPtPM"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "680486975426-1oja0vpggvb9k2ipg6giauobqb5uvpaa.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:680486975426:android:dd736c3500d42e1cb5c85b",
-        "android_client_info": {
-          "package_name": "com.dev.scopex.codewithlokesh"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "680486975426-rjoqia5pmp1ahon1vsrasj699v0rntgf.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.dev.scopex.codewithlokesh",
-            "certificate_hash": "633885b25a1719717266f01cd2db0b7c8de503bc"
-          }
+          "client_id": "680486975426-223gd4pr4md7opmpaet0pnui4lh9s09i.apps.googleusercontent.com",
+          "client_type": 3
         }
       ],
       "api_key": [

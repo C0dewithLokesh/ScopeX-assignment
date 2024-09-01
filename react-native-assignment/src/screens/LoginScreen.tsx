@@ -18,7 +18,7 @@ import {userState} from '../store/userState';
 GoogleSignin.configure({
   scopes: ['openid', 'email', 'profile'],
   webClientId:
-    '47684985729-p35ggalcseji24s1nlsd221bttcjrtvh.apps.googleusercontent.com',
+    '680486975426-223gd4pr4md7opmpaet0pnui4lh9s09i.apps.googleusercontent.com',
   forceCodeForRefreshToken: true,
   profileImageSize: 120,
 });
