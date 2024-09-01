@@ -4,7 +4,7 @@ import {ActivityIndicator, Alert, FlatList, Text, View} from 'react-native';
 import Toast from 'react-native-simple-toast';
 import Feather from 'react-native-vector-icons/Feather';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import {useRecoilState, useSetRecoilState} from 'recoil';
+import {useRecoilState} from 'recoil';
 import tw from 'twrnc';
 import {
   deleteTodoItem,
@@ -21,7 +21,7 @@ const TodoList = () => {
   const [loading, setLoading] = useState(false);
   const [allItemsLoaded, setAllItemsLoaded] = useState(false);
   const [currentPage, setCurrentPage] = useState(0);
-  const setShowEditModal = useSetRecoilState(editModalState);
+  const [showEditModal, setShowEditModal] = useRecoilState(editModalState);
   const [currentTodoItem, setCurrentTodoItem] = useState<TodoItem | null>(null);
 
   const fetchTodoItems = async (page: number) => {
@@ -122,20 +122,24 @@ const TodoList = () => {
             </View>
           </View>
         )}
-        className="w-full"
+        className="w-full h-[85%]"
         keyExtractor={item => item.id}
         onEndReached={() => fetchTodoItems(currentPage + 1)}
-        contentContainerStyle={{gap: 20}}
+        contentContainerStyle={{gap: 20, paddingBottom: 20}}
         onEndReachedThreshold={0.5}
+        showsVerticalScrollIndicator={false}
         ListFooterComponent={
           loading ? <ActivityIndicator size="large" color={'#F16023'} /> : null
         }
       />
 
-      <EditTodoModal
-        currentTodoItem={currentTodoItem?.title || ''}
-        onUpdate={handleUpdate}
-      />
+      {showEditModal && (
+        <EditTodoModal
+          currentTodoItem={currentTodoItem?.title || ''}
+          onUpdate={handleUpdate}
+          setCurrentTodoItem={setCurrentTodoItem}
+        />
+      )}
     </>
   );
 };
