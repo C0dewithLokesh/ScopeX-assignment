@@ -17,12 +17,13 @@ const IconBtn = ({
 }) => {
   return (
     <Pressable
-      className={`flex flex-row items-center justify-center bg-[#F16023] rounded-[16px] w-full py-2 ${btnClassName}`}
+      className={`flex flex-row items-center justify-center bg-[#F16023] rounded-[14px] w-full py-2 ${btnClassName}`}
       style={tw`gap-4`}
       onPress={onClick}>
       {icon && <Image source={icon} className={'w-5 h-5'} />}
       <Text
-        className={`text-white text-center text-xl font-medium capitalize ${textClassName}`}>
+        className={`text-white text-center text-xl font-firaCode_medium font-medium capitalize leading-5 ${textClassName}`}
+        style={tw`leading-5`}>
         {title}
       </Text>
     </Pressable>

@@ -21,6 +21,9 @@ const HomeTabNavigator = () => {
         }`,
         tabBarIconStyle: tw`mt-2`,
         tabBarActiveTintColor: '#F16023',
+        tabBarLabelStyle: {
+          fontFamily: 'FiraCode-Regular',
+        },
       }}>
       <Tab.Screen
         name="Home"

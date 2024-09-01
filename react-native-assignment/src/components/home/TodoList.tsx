@@ -98,7 +98,7 @@ const TodoList = () => {
           <View
             key={index}
             className="w-full flex flex-row items-center justify-between px-5">
-            <Text className="text-black dark:text-white text-semibold text-base">
+            <Text className="text-black font-firaCode_semiBold dark:text-white text-semibold text-base">
               {item?.title}
             </Text>
             <View className="flex flex-row items-center" style={tw`gap-2`}>

@@ -49,10 +49,10 @@ const ProfileScreen = () => {
             )}
           </View>
           <View className="flex items-start" style={tw`gap-1`}>
-            <Text className="text-black dark:text-white text-xl">
+            <Text className="text-black font-firaCode_regular dark:text-white text-xl">
               {user?.name}
             </Text>
-            <Text className="text-gray-500 dark:text-gray-200">
+            <Text className="text-gray-500 font-firaCode_regular dark:text-gray-200">
               {user?.email}
             </Text>
           </View>

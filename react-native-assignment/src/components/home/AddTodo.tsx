@@ -40,7 +40,7 @@ const AddTodo = () => {
       <TextInput
         placeholder="Enter a todo..."
         value={todoInput}
-        className=" pl-4 flex-1 text-black dark:text-white"
+        className="pl-4 flex-1 font-firaCode_regular text-black dark:text-white"
         placeholderTextColor={'#848484'}
         multiline
         editable={!loading}
@@ -48,7 +48,7 @@ const AddTodo = () => {
       />
       <IconBtn
         title="Add Todo"
-        btnClassName="w-[30%] py-3"
+        btnClassName="w-[30%] py-[14px]"
         textClassName="text-base"
         onClick={handleAddTodo}
       />
