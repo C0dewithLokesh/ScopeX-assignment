@@ -1,3 +1,4 @@
+import auth from '@react-native-firebase/auth';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
 import {CommonActions, useNavigation} from '@react-navigation/native';
 import {useColorScheme} from 'nativewind';
@@ -23,8 +24,12 @@ const ProfileScreen = () => {
     }
     try {
       setLoading(true);
-      await GoogleSignin.revokeAccess();
-      await GoogleSignin.signOut();
+      if (user?.email) {
+        await GoogleSignin.revokeAccess();
+        await GoogleSignin.signOut();
+      } else if (user?.phoneNumber) {
+        await auth().signOut();
+      }
       setUser(null);
       navigation.dispatch(
         CommonActions.reset({

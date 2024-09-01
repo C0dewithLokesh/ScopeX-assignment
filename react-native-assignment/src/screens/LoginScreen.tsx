@@ -80,7 +80,7 @@ const LoginScreen = () => {
       setMobile('');
       setOtp('');
       setConfirm(null);
-      setUser(response);
+      setUser(response?.user);
       navigation.dispatch(
         CommonActions.reset({
           index: 0,

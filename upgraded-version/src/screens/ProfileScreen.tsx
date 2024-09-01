@@ -1,19 +1,20 @@
-import {GoogleSignin} from '@react-native-google-signin/google-signin';
-import {CommonActions, useNavigation} from '@react-navigation/native';
-import {useColorScheme} from 'nativewind';
-import React from 'react';
-import {Image, Text, View} from 'react-native';
-import Toast from 'react-native-simple-toast';
-import Feather from 'react-native-vector-icons/Feather';
-import {useRecoilState} from 'recoil';
-import tw from 'twrnc';
-import PrimaryLayout from '../components/shared/layout/PrimaryLayout';
-import {loadingState} from '../store/globalState';
-import {userState} from '../store/userState';
+import auth from "@react-native-firebase/auth";
+import { GoogleSignin } from "@react-native-google-signin/google-signin";
+import { CommonActions, useNavigation } from "@react-navigation/native";
+import { useColorScheme } from "nativewind";
+import React from "react";
+import { Image, Text, View } from "react-native";
+import Toast from "react-native-simple-toast";
+import Feather from "react-native-vector-icons/Feather";
+import { useRecoilState } from "recoil";
+import tw from "twrnc";
+import PrimaryLayout from "../components/shared/layout/PrimaryLayout";
+import { loadingState } from "../store/globalState";
+import { userState } from "../store/userState";
 
 const ProfileScreen = () => {
   const navigation = useNavigation();
-  const {colorScheme} = useColorScheme();
+  const { colorScheme } = useColorScheme();
   const [user, setUser] = useRecoilState(userState);
   const [loading, setLoading] = useRecoilState(loadingState);
 
@@ -23,18 +24,22 @@ const ProfileScreen = () => {
     }
     try {
       setLoading(true);
-      await GoogleSignin.revokeAccess();
-      await GoogleSignin.signOut();
+      if (user?.email) {
+        await GoogleSignin.revokeAccess();
+        await GoogleSignin.signOut();
+      } else if (user?.phoneNumber) {
+        await auth().signOut();
+      }
       setUser(null);
       navigation.dispatch(
         CommonActions.reset({
           index: 0,
-          routes: [{name: 'Login'}],
-        }),
+          routes: [{ name: "Login" }],
+        })
       );
-      Toast.show('Logout done', Toast.SHORT);
+      Toast.show("Logout done", Toast.SHORT);
     } catch (error) {
-      console.error('Error signing out: ', error);
+      console.error("Error signing out: ", error);
       setLoading(false);
     } finally {
       setLoading(false);
@@ -48,22 +53,22 @@ const ProfileScreen = () => {
           <Feather
             name="log-out"
             size={25}
-            color={colorScheme === 'light' ? 'black' : 'white'}
+            color={colorScheme === "light" ? "black" : "white"}
             onPress={() => handleSignOut()}
           />
         </View>
         <View className="flex flex-row items-center w-full" style={tw`gap-6`}>
           <View className="w-20 h-20 rounded-full overflow-hidden bg-gray-200">
             {user?.photo && (
-              <Image source={{uri: user?.photo}} className="w-full h-full" />
+              <Image source={{ uri: user?.photo }} className="w-full h-full" />
             )}
           </View>
           <View className="flex items-start" style={tw`gap-1`}>
             <Text className="text-black font-firaCode_regular dark:text-white text-xl">
-              {user?.name || 'Guest'}
+              {user?.name || "Guest"}
             </Text>
             <Text className="text-gray-500 font-firaCode_regular dark:text-gray-200">
-              {user?.email || user?.phoneNumber || ''}
+              {user?.email || user?.phoneNumber || ""}
             </Text>
           </View>
         </View>
