@@ -7,6 +7,7 @@ interface UserTypes {
   id?: string | null;
   name?: string | null;
   photo?: string | null;
+  phoneNumber?: string | null;
 }
 
 export const userState = atom<UserTypes | null>({

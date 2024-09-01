@@ -4,13 +4,12 @@ import tw from 'twrnc';
 import AddTodo from '../components/home/AddTodo';
 import TodoList from '../components/home/TodoList';
 import ThemeToggle from '../components/shared/buttons/ThemeToggle';
+import PrimaryLayout from '../components/shared/layout/PrimaryLayout';
 
 const HomeScreen = () => {
   return (
-    <View
-      className="w-full h-full p-5 pt-2 dark:bg-[#2C2C2C]"
-      style={tw`gap-2`}>
-      <View className="flex flex-row items-center justify-between">
+    <PrimaryLayout containerClasses="pt-5 gap-2">
+      <View className="flex flex-row items-center justify-between w-full">
         <Text className="text-black font-firaCode_semiBold text-[30px] font-semibold dark:text-white">
           Todo
         </Text>
@@ -21,7 +20,7 @@ const HomeScreen = () => {
         <AddTodo />
         <TodoList />
       </View>
-    </View>
+    </PrimaryLayout>
   );
 };
 

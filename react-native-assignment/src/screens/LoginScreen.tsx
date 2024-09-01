@@ -4,13 +4,15 @@ import {
   statusCodes,
 } from '@react-native-google-signin/google-signin';
 import {CommonActions, useNavigation} from '@react-navigation/native';
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {Alert, Text, View} from 'react-native';
 import Toast from 'react-native-simple-toast';
-import {useSetRecoilState} from 'recoil';
+import {useRecoilState, useSetRecoilState} from 'recoil';
 import tw from 'twrnc';
 import IconBtn from '../components/shared/buttons/IconBtn';
 import CustomInput from '../components/shared/input/CustomInput';
+import PrimaryLayout from '../components/shared/layout/PrimaryLayout';
+import {loadingState} from '../store/globalState';
 import {userState} from '../store/userState';
 
 GoogleSignin.configure({
@@ -27,31 +29,58 @@ const LoginScreen = () => {
   const [confirm, setConfirm] = useState<any>(null);
   const [mobile, setMobile] = useState('');
   const [otp, setOtp] = useState('');
+  const [loading, setLoading] = useRecoilState(loadingState);
 
-  function onAuthStateChanged(user: any) {
-    if (user) {
-      console.log(user);
-    }
-  }
+  // function onAuthStateChanged(user: any) {
+  //   if (user) {
+  //     // console.log(JSON.stringify(user, null, 2));
+  //     // if (user?.phoneNumber) {
+  //     //   setUser(user);
+  //     // }
+  //   }
+  // }
 
-  useEffect(() => {
-    const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
-    return subscriber; // unsubscribe on unmount
-  }, []);
+  // useEffect(() => {
+  //   const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
+  //   return subscriber;
+  // }, []);
 
   async function signInWithPhoneNumber() {
+    if (loading) {
+      return;
+    }
+    if (mobile === '') {
+      Alert.alert('Invalid Mobile', 'Mobile Number is required');
+      return;
+    }
     try {
+      setLoading(true);
       const confirmation = await auth().signInWithPhoneNumber(`+91 ${mobile}`);
       setConfirm(confirmation);
     } catch (error: any) {
       console.log(error);
       Alert.alert('Error', error?.message);
+      setLoading(false);
+    } finally {
+      setLoading(false);
     }
   }
 
   async function confirmCode() {
+    if (loading) {
+      return;
+    }
+    if (otp === '') {
+      Alert.alert('Invalid OTP', 'OTP is required');
+      return;
+    }
     try {
-      await confirm.confirm(otp);
+      setLoading(true);
+      const response = await confirm.confirm(otp);
+      setMobile('');
+      setOtp('');
+      setConfirm(null);
+      setUser(response);
       navigation.dispatch(
         CommonActions.reset({
           index: 0,
@@ -60,14 +89,19 @@ const LoginScreen = () => {
       );
     } catch (error: any) {
       console.log('Invalid code.');
+      setLoading(false);
       Alert.alert('Error', error?.message);
+    } finally {
+      setLoading(false);
     }
   }
 
   const handleGoogleSignIn = async () => {
+    if (loading) {
+      return;
+    }
     try {
       await GoogleSignin.hasPlayServices();
-
       const {idToken, user} = await GoogleSignin.signIn();
 
       const googleCredential = auth.GoogleAuthProvider.credential(idToken);
@@ -96,9 +130,7 @@ const LoginScreen = () => {
   };
 
   return (
-    <View
-      className="w-full h-full p-5 pt-2 dark:bg-[#373737] flex items-center justify-center"
-      style={tw`gap-20`}>
+    <PrimaryLayout containerClasses="gap-20">
       <View className="flex flex-col items-center w-full">
         <Text
           className={
@@ -154,7 +186,7 @@ const LoginScreen = () => {
           onClick={handleGoogleSignIn}
         />
       </View>
-    </View>
+    </PrimaryLayout>
   );
 };
 
